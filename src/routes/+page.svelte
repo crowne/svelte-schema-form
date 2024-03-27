@@ -1,7 +1,5 @@
 <script lang="ts">
 	import SubmitForm from "$lib/SubmitForm.svelte";
-	import "svelte-schema-form/css/layout.scss";
-	import "svelte-schema-form/css/basic-skin.scss";
 
 	let schema: any = {
 		type: "object",
