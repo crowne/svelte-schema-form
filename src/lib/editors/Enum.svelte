@@ -15,7 +15,8 @@
 		name={params.path.join('.')}
 		value={value} 
 		disabled={schema.readOnly || params.containerReadOnly}
-		on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}>
+		on:change={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}
+		class="border w-full">
 		<option></option>
 		{#each enumVals as enumVal, idx}
 		<option value={enumVal}>{(enumText || [])[idx]}</option>

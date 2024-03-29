@@ -116,9 +116,15 @@
 	componentContext.doUploads = doUploads;
 </script>
 
-<form class='svelte-schema-form' {action} class:dirty>
+<form {action} class:dirty>
 	<SchemaForm bind:schema {value} on:value={change} bind:dirty bind:uploadFiles {showErrors} {components} {collapsible} {componentContext} />
-	<div class="button-container">
+	<div class="text-center">
 		<button type={action ? "submit" : "button"} class="submit-button" on:click={submit} class:dirty={dirty}>{submitText}</button>
 	</div>
 </form>
+
+<style>
+	.submit-button {
+		@apply border px-2 py-1 bg-neutral-100 hover:bg-red-50;
+	}
+</style>

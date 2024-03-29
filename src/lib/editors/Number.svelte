@@ -14,5 +14,6 @@
 			let val = parseFloat(ev.currentTarget.value);
 			params.pathChanged(params.path, isNaN(val) ? undefined : val);
 		}}
+		class="border w-full"
 	/>
 </svelte:component>

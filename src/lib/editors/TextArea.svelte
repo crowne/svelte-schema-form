@@ -12,11 +12,6 @@
         name={params.path.join('.')}
         disabled={schema.readOnly || params.containerReadOnly}
         on:input={ev => params.pathChanged(params.path, ev.currentTarget.value || undefined)}
+        class="border bg-white"
     >{value || ''}</textarea>
 </svelte:component>
-
-<style>
-    textarea {
-        background-color: white;
-    }
-</style>

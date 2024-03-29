@@ -78,62 +78,38 @@
 	const componentContext = { currencySymbol: '£' };
 </script>
 
-<div class="container">
-	<div class="schema" class:jsonInvalid>
-		<div class="control">
-			<input type="checkbox" id="collapsible" bind:checked={collapsible} />
-			<label for="collapsible">Collapsible</label>
+<div class="grid grid-cols-3 gap-2 m-1">
+	<div class="border">
+		<div class="pl-0.5 pr-0.5">
+			<h2>Schema</h2>
+			<div>
+				<input type="checkbox" id="collapsible" bind:checked={collapsible} />
+				<label for="collapsible">Collapsible</label>
+			</div>
+			<textarea id="schema" on:keyup={schemaUpdate} class="border w-full h-dvh">
+				{JSON.stringify(schema, undefined, 2)}
+			</textarea>
 		</div>
-		<textarea id="schema" on:keyup={schemaUpdate}>{JSON.stringify(schema, undefined, 2)}</textarea>
 	</div>
-	<div class="form">
-		<SubmitForm {schema} {value} on:submit={submit} on:value={change} uploadBaseUrl="https://restspace.local:3131/files" {collapsible} {componentContext} />
+	<div class="border h-dvh">
+		<div class="pl-0.5 pr-0.5">
+			<h2>Form</h2>
+			<SubmitForm {schema} {value} on:submit={submit} on:value={change} uploadBaseUrl="https://restspace.local:3131/files" {collapsible} {componentContext} />
+		</div>
 	</div>
-	<div class="output">
-		<pre>
-			{valueJson}
-		</pre>
+	
+	<div class="border">
+		<div class="pl-0.5 pr-0.5">
+			<h2>Output</h2>
+			<pre>
+				{valueJson}
+			</pre>
+		</div>
 	</div>
 </div>
 
 <style>
-	* {
-		box-sizing: border-box;
-	}
-
-	.container {
-		display: flex;
-		position: relative;
-	}
-	.schema, .form, .output {
-		width: 32%;
-		border: solid 1px black;
-		height: 99vh;
-		position: relative;
-	}
-	.schema {
-		border: none;
-		display: flex;
-		flex-direction: column;
-	}
-	.form, .output {
-		margin-left: 1%;
-		padding: 1em;
-	}
-	#schema {
-		width: 100%;
-		height: 100%;
-		gap: 1em;
-	}
-	.schema.jsonInvalid #schema {
-		color: darkred;
-	}
-
-	#collapsible {
-		margin-bottom: 6px;
-	}
-	
-	.control {
-		margin-bottom: 6px;
+	h2 {
+		@apply text-lg font-bold underline;
 	}
 </style>

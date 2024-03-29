@@ -23,7 +23,7 @@
 	$: showLegend = params.collapsible || (params.containerParent !== 'array' && !!legendText);
 </script>
 
-<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length}">
+<fieldset name={params.path.join('.')} class="subset object depth-{params.path.length} ">
 	{#if showLegend }
 	<legend class="subset-label object-label">
 		{#if params.collapsible }
@@ -39,18 +39,20 @@
 	{/if}
 
 	{#if collapserOpenState === "open"}
-	{#each propNames as propName (propName)}
-	<SubSchemaForm
-		params={{
-			...params,
-			path: [ ...params.path, propName ],
-			required: (schema?.required || []).includes(propName),
-			containerParent: "object",
-			containerReadOnly: params.containerReadOnly || schema.readOnly || false,
-		}}
-		value={value?.[propName]}
-		bind:schema={schema.properties[propName]}
-	/>
-	{/each}
+	<div class="grid gap-2 grid-cols-[min-content_1fr]">
+		{#each propNames as propName (propName)}
+		<SubSchemaForm
+			params={{
+				...params,
+				path: [ ...params.path, propName ],
+				required: (schema?.required || []).includes(propName),
+				containerParent: "object",
+				containerReadOnly: params.containerReadOnly || schema.readOnly || false,
+			}}
+			value={value?.[propName]}
+			bind:schema={schema.properties[propName]}
+		/>
+		{/each}
+	</div>
 	{/if}
 </fieldset>
