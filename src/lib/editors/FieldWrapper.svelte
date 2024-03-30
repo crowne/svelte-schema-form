@@ -25,7 +25,7 @@
 			</label>
 		</div>
 		{#if schema.description}
-			<div title={schema.description} class="size-2.5">
+			<div title={schema.description} class="size-2.5 cursor-help">
 				<Info size={12} />
 			</div>
 		{/if}
