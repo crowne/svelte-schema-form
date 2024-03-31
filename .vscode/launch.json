@@ -5,7 +5,7 @@
 			"name": "Launch Node",
 			"request": "launch",
 			"runtimeArgs": ["run-script", "dev"],
-			"runtimeExecutable": "npm",
+			"runtimeExecutable": "pnpm",
 			"skipFiles": ["<node_internals>/**"],
 			"type": "node",
 			"console": "integratedTerminal"
