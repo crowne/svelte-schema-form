@@ -1,0 +1,38 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch Node",
+			"request": "launch",
+			"runtimeArgs": ["run-script", "dev"],
+			"runtimeExecutable": "npm",
+			"skipFiles": ["<node_internals>/**"],
+			"type": "node",
+			"console": "integratedTerminal"
+		},
+		{
+			"type": "chrome",
+			"request": "launch",
+			"name": "Launch Chrome",
+			"url": "http://localhost:5173/",
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"type": "msedge",
+			"request": "launch",
+			"name": "Launch Edge",
+			"url": "http://localhost:5173/",
+			"webRoot": "${workspaceFolder}"
+		}
+	],
+	"compounds": [
+		{
+			"name": "Chrome + Node",
+			"configurations": ["Launch Node", "Launch Chrome"]
+		},
+		{
+			"name": "Edge + Node",
+			"configurations": ["Launch Node", "Launch Edge"]
+		}
+	]
+}
