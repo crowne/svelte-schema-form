@@ -2,6 +2,7 @@
 	import type { CommonComponentParameters } from "../types/CommonComponentParameters";
 	import { emptyValue, schemaLabel } from "../types/schema.js";
 	import SubSchemaForm from "../SubSchemaForm.svelte";
+	import Add from '../img/Add.svelte'
     import { stringToHtml } from "../utilities.js";
     import { arrayDelete, arrayAdd, arrayUp, arrayDown, arrayDuplicate, arrayFill } from "../arrayOps.js";
 	export let params: CommonComponentParameters;
@@ -33,7 +34,7 @@
 		{#if params.collapsible }
 		<span class="collapser {collapserOpenState}" on:click={toggle}></span>
 		{/if}
-		<span class="subset-label-title object-label-title">{@html stringToHtml(legendText)}</span>
+		<h4>{@html stringToHtml(legendText)}</h4>
 		{#if schema.description}
 		<span class="subset-label-description object-label-description">{@html stringToHtml(schema.description)}</span>
 		{/if}
@@ -73,7 +74,9 @@
 			<div class="emptyText">{emptyText}</div>
 		{/if}
 		{#if controls.includes('add') && !atMaxItems}
-		<button type="button" class="list-control add" title="add item" on:click={arrayAdd(schema, params, value)}></button>
+		<button type="button" title="add item" on:click={arrayAdd(schema, params, value)}>
+			<Add />
+		</button>
 		{/if}
 	{/if}
 </fieldset>

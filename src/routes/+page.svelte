@@ -107,9 +107,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-	h2 {
-		@apply text-lg font-bold underline;
-	}
-</style>
