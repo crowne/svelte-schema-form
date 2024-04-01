@@ -6,6 +6,7 @@
 	import Delete from '../img/Delete.svelte'
 	import Down from '../img/Down.svelte'
 	import Duplicate from '../img/Duplicate.svelte'
+	import Right from '../img/Right.svelte'
 	import Up from '../img/Up.svelte'
     import { stringToHtml } from "../utilities.js";
     import { arrayDelete, arrayAdd, arrayUp, arrayDown, arrayDuplicate, arrayFill } from "../arrayOps.js";
@@ -34,19 +35,31 @@
 {#if showWrapper}
 {#if params.collapsible || legendText}
 	<legend class="subset-label array-label">
-		{#if params.collapsible }
-		<span class="collapser {collapserOpenState}" on:click={toggle}></span>
-		{/if}
 		<h4>{@html stringToHtml(legendText)}</h4>
 		{#if schema.description}
 		<span class="subset-label-description object-label-description">{@html stringToHtml(schema.description)}</span>
 		{/if}
 	</legend>
-	{#if controls.includes('add') && !atMaxItems}
-	<button type="button" title="add item" on:click={arrayAdd(schema, params, value)}>
-		<Add />
-	</button>
-	{/if}
+	<div class="inline-flex flex-nowrap justify-between">
+		{#if controls.includes('add') && !atMaxItems && (!params.collapsible || collapserOpenState === "open") }
+		<button type="button" title="add item" on:click={arrayAdd(schema, params, value)}>
+			<Add />
+		</button>
+		{:else}
+		<span class="w-6"/>
+		{/if}
+		{#if params.collapsible }
+			{#if collapserOpenState === "open" }
+			<button type="button" title="Collapse" on:click={toggle}>
+				<Down />
+			</button>
+			{:else}
+			<button type="button" title="Expand" on:click={toggle}>
+				<Right />
+			</button>
+			{/if}
+		{/if}
+	</div>
 {/if}
 <fieldset name={params.path.join('.')} class="col-span-2 array depth-{params.path.length}">
 	{#if collapserOpenState === "open"}
