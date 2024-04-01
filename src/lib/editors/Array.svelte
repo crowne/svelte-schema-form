@@ -3,6 +3,10 @@
 	import { emptyValue, schemaLabel } from "../types/schema.js";
 	import SubSchemaForm from "../SubSchemaForm.svelte";
 	import Add from '../img/Add.svelte'
+	import Delete from '../img/Delete.svelte'
+	import Down from '../img/Down.svelte'
+	import Duplicate from '../img/Duplicate.svelte'
+	import Up from '../img/Up.svelte'
     import { stringToHtml } from "../utilities.js";
     import { arrayDelete, arrayAdd, arrayUp, arrayDown, arrayDuplicate, arrayFill } from "../arrayOps.js";
 	export let params: CommonComponentParameters;
@@ -28,8 +32,7 @@
 </script>
 
 {#if showWrapper}
-<fieldset name={params.path.join('.')} class="subset array depth-{params.path.length}">
-	{#if params.collapsible || legendText}
+{#if params.collapsible || legendText}
 	<legend class="subset-label array-label">
 		{#if params.collapsible }
 		<span class="collapser {collapserOpenState}" on:click={toggle}></span>
@@ -39,44 +42,59 @@
 		<span class="subset-label-description object-label-description">{@html stringToHtml(schema.description)}</span>
 		{/if}
 	</legend>
+	{#if controls.includes('add') && !atMaxItems}
+	<button type="button" title="add item" on:click={arrayAdd(schema, params, value)}>
+		<Add />
+	</button>
 	{/if}
-
+{/if}
+<fieldset name={params.path.join('.')} class="col-span-2 array depth-{params.path.length}">
 	{#if collapserOpenState === "open"}
 		{#if !emptyText}
 			{#each value || [] as item, idx (idx)}
-			<svelte:component this={SubSchemaForm}
-				params={{
-					...params,
-					path: [ ...params.path, idx.toString() ],
-					containerParent: "array",
-					containerReadOnly: params.containerReadOnly || schema.readOnly || false
-				}}
-				value={item}
-				bind:schema={schema.items}
-			/>
-			<div class="list-controls">
-				{#if controls.includes('delete') && !atMinItems}
-				<button type="button" class="list-control delete" title="delete" on:click={arrayDelete(idx, params, value)}></button>
-				{/if}
-				{#if controls.includes('duplicate') && !atMaxItems}
-				<button type="button" class="list-control duplicate" title="duplicate" on:click={arrayDuplicate(idx, params, value)}></button>
-				{/if}
-				{#if controls.includes('reorder') && idx > 0}
-					<button type="button" class="list-control up" title="move up" on:click={arrayUp(idx, params, value)}></button>
-				{/if}
-				{#if controls.includes('reorder') && idx < (value || []).length - 1}
-					<button type="button" class="list-control down" title="move down" on:click={arrayDown(idx, params, value)}></button>
-				{/if}
+			<div class="py-0.5 grid grid-cols-[min-content_1fr]">
+				<div class="list-controls inline-flex flex-nowrap">
+					{#if controls.includes('delete') && !atMinItems}
+					<button type="button" title="delete" on:click={arrayDelete(idx, params, value)}>
+						<Delete />
+					</button>
+					{/if}
+					{#if controls.includes('duplicate') && !atMaxItems}
+					<button type="button" title="duplicate" on:click={arrayDuplicate(idx, params, value)}>
+						<Duplicate />
+					</button>
+					{/if}
+					{#if controls.includes('reorder') && idx > 0}
+					<button type="button" title="move up" on:click={arrayUp(idx, params, value)}>
+						<Up />
+					</button>
+					{:else}
+					<span class="w-6"/>
+					{/if}
+					{#if controls.includes('reorder') && idx < (value || []).length - 1}
+					<button type="button" title="move down" on:click={arrayDown(idx, params, value)}>
+						<Down />
+					</button>
+					{:else}
+					<span class="w-6"/>
+					{/if}
+				</div>
+				<div>
+					<svelte:component this={SubSchemaForm}
+						params={{
+							...params,
+							path: [ ...params.path, idx.toString() ],
+							containerParent: "array",
+							containerReadOnly: params.containerReadOnly || schema.readOnly || false
+						}}
+						value={item}
+						bind:schema={schema.items}
+					/>
+				</div>
 			</div>
-
 			{/each}
 		{:else}
 			<div class="emptyText">{emptyText}</div>
-		{/if}
-		{#if controls.includes('add') && !atMaxItems}
-		<button type="button" title="add item" on:click={arrayAdd(schema, params, value)}>
-			<Add />
-		</button>
 		{/if}
 	{/if}
 </fieldset>

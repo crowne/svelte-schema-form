@@ -1,8 +1,8 @@
 <svg
     class="svg-icon"
     role="img"
-    height="20"
-    width="20"
+    height="24"
+    width="24"
     viewBox="0 0 24 24"
     aria-hidden="true"
     focusable="false"

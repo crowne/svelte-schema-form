@@ -34,6 +34,6 @@
 <div>
 	<slot />
 	{#if error && params.showErrors}
-		<div class="text-red-600">{error}</div>
+		<div class="text-sm text-red-600">{error}</div>
 	{/if}
 </div>
